@@ -4,6 +4,8 @@ import re
 
 info = []
 
+# TODO - Convert Code Logic to Utilize a PlexServer Class
+
 
 def read_info(filename):
     with open(filename, 'r') as reader:
