@@ -14,6 +14,8 @@ def read_info(filename):
             reader.close()
 
 
+# TODO - Pass in OS Variable to function to parse different OS Versions
+
 def check_latest_version():
     # Stores Plex API Downloads URL
     url = 'https://plex.tv/pms/downloads/5.json'
@@ -70,6 +72,8 @@ def is_update_required():
     else:
         return True
 
+# TODO - Finish Update Function.  Download update and maybe run bash script?
+
 
 # def plex_update(update_source):
     # url = update_source
@@ -79,6 +83,7 @@ def is_update_required():
 # Passes Credential File to ReadInfo Function
 read_info('credentials.txt')
 
+# TODO - Find Proper place to store these variables, maybe change to CSV to remove \n splicing (Pandas)
 
 # Stores Credentials, Splices \n from Username/Password - Not needed for IP
 USERNAME = info[0][:-1]
