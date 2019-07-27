@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 import re
 import subprocess
 
-class PlexServer:
 
+class PlexServer:
 
 	def __init__(self, credentials):
 		self.credentials = credentials
@@ -17,7 +17,8 @@ class PlexServer:
 		self.x_plex_token = self.get_x_plex_token()
 		self.my_vers = self.get_my_vers()
 		self.need_update = self.is_update_required()
-
+		# TODO - Add OS and Architecture Type Detection for Linux (CentOS vs Debian), (x86, x64, ARMv7, ARMv8)
+		# TODO - Add Update Function for when need_update is True, update function to only execute when no users
 
 	def read_username(self):
 		with open(self.credentials, 'r') as f:
@@ -50,7 +51,7 @@ class PlexServer:
 
 	def get_x_plex_token(self):
 		headers = {'X-Plex-Client-Identifier': 'Plex-Upgrade-Script',
-				   'X-Plex-Product': 'mmurphy-upgrade-script', 'X-Plex-Version': 'Version 1.1'}
+'X-Plex-Product': 'mmurphy-upgrade-script', 'X-Plex-Version': 'Version 1.1'}
 		data = {'user[login]': self.username, 'user[password]': self.password}
 		response = requests.post(self.login_url, headers=headers, data=data)
 		login_data = response.json()
@@ -59,9 +60,9 @@ class PlexServer:
 		return token
 
 	def get_my_vers(self):
-		pms_server_API_url = f'http://{self.server_ip}:32400/servers/?X-Plex-Token={self.x_plex_token}'
+		pms_server_api_url = f'http://{self.server_ip}:32400/servers/?X-Plex-Token={self.x_plex_token}'
 		# Stores GET Response
-		pms_response = requests.get(pms_server_API_url)
+		pms_response = requests.get(pms_server_api_url)
 		# Stores GET Content as BeautifulSoup Object parsed by HTML Parser
 		bs_data = BeautifulSoup(pms_response.content, 'html.parser')
 		# Parse and return version
